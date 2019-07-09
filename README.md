@@ -160,34 +160,34 @@ When the client makes a `GET` request to `/api/posts/:id/comments`:
 
 When the client makes a `DELETE` request to `/api/posts/:id`:
 
-- [ ] If the _post_ with the specified `id` is not found:
+- [ x ] If the _post_ with the specified `id` is not found:
 
-  - [ ] return HTTP status code `404` (Not Found).
-  - [ ] return the following JSON object: `{ message: "The post with the specified ID does not exist." }`.
+  - [ x ] return HTTP status code `404` (Not Found).
+  - [ x ] return the following JSON object: `{ message: "The post with the specified ID does not exist." }`.
 
-- [ ] If there's an error in removing the _post_ from the database:
-  - [ ] cancel the request.
-  - [ ] respond with HTTP status code `500`.
-  - [ ] return the following JSON object: `{ error: "The post could not be removed" }`.
+- [ x ] If there's an error in removing the _post_ from the database:
+  - [ x ] cancel the request.
+  - [ x ] respond with HTTP status code `500`.
+  - [ x ] return the following JSON object: `{ error: "The post could not be removed" }`.
 
 When the client makes a `PUT` request to `/api/posts/:id`:
 
-- [ ] If the _post_ with the specified `id` is not found:
+- [ x ] If the _post_ with the specified `id` is not found:
 
-  - [ ] return HTTP status code `404` (Not Found).
-  - [ ] return the following JSON object: `{ message: "The post with the specified ID does not exist." }`.
+  - [ x ] return HTTP status code `404` (Not Found).
+  - [ x ] return the following JSON object: `{ message: "The post with the specified ID does not exist." }`.
 
-- [ ] If the request body is missing the `title` or `contents` property:
+- [ x ] If the request body is missing the `title` or `contents` property:
 
-  - [ ] cancel the request.
-  - [ ] respond with HTTP status code `400` (Bad Request).
-  - [ ] return the following JSON response: `{ errorMessage: "Please provide title and contents for the post." }`.
+  - [ x ] cancel the request.
+  - [ x ] respond with HTTP status code `400` (Bad Request).
+  - [ x ] return the following JSON response: `{ errorMessage: "Please provide title and contents for the post." }`.
 
-- [ ] If there's an error when updating the _post_:
+- [ x ] If there's an error when updating the _post_:
 
-  - [ ] cancel the request.
-  - [ ] respond with HTTP status code `500`.
-  - [ ] return the following JSON object: `{ error: "The post information could not be modified." }`.
+  - [ x ] cancel the request.
+  - [ x ] respond with HTTP status code `500`.
+  - [ x ] return the following JSON object: `{ error: "The post information could not be modified." }`.
 
 - [ ] If the post is found and the new information is valid:
 

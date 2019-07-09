@@ -23,6 +23,7 @@ router.post('/', (req, res) => {
             }
         })
 })
+
 // POST comment
 router.post('/:id/comments', (req, res) => {
     const text = req.body.text;
@@ -31,14 +32,10 @@ router.post('/:id/comments', (req, res) => {
     // NOTE: db does not return anything for missing post_id
     db.insertComment({ text, post_id: id })
         .then(comment => {
-            if (comment.length === 0) {
-                res.status(404).json({ message: "The post with the specified ID does not exist." });
-            } else {
-                res.status(201).json(comment);
-            }
+            res.status(201).json(comment);
         })
         .catch(error => {
-            if (commentObject.text === undefined) {
+            if (text === undefined) {
                 res.status(404).json({ errorMessage: "Please provide text for the comment." })
             } else {
                 res.status(500).json({ error: "Either there was an error, or the original post doesn't exist." })
@@ -47,7 +44,6 @@ router.post('/:id/comments', (req, res) => {
 })
 
 // GET all blog posts
-
 router.get('/', function (req, res) {
     db.find()
         .then(posts => {
@@ -59,7 +55,6 @@ router.get('/', function (req, res) {
 })
 
 // GET blog post by ID
-
 router.get('/:id', function (req, res) {
     const { id } = req.params;
 
@@ -77,7 +72,6 @@ router.get('/:id', function (req, res) {
 })
 
 // GET comments
-
 router.get('/:id/comments', function (req, res) {
     const { id } = req.params;
 
@@ -97,8 +91,40 @@ router.get('/:id/comments', function (req, res) {
 })
 
 // DELETE blog post
+router.delete('/:id', function (req, res) {
+    const { id } = req.params;
+
+    db.remove(id)
+        .then(response => {
+            if (response === 0) {
+                res.status(404).json({ message: "The post with the specified ID does not exist." });
+            } else {
+                res.status(200).json(response);
+            }
+        })
+        .catch(error => {
+            res.status(500).json({ error: "The post could not be removed" });
+        })
+})
 
 // PUT blog post
+router.put('/:id', function (req, res) {
+    const { id } = req.params;
+    const postInfo = req.body;
 
+    db.update(id, postInfo)
+        .then(response => {
+            if (response === 0) {
+                res.status(404).json({ message: "The post with the specified ID does not exist." });
+            } else if (postInfo.title === undefined || postInfo.contents === undefined) {
+                res.status(400).json({ errorMessage: "Please provide title and contents for the post." });
+            } else {
+                res.status(200).json(response);
+            }
+        })
+        .catch(error => {
+            res.status(500).json({ error: "The post information could not be modified." });
+        })
+})
 
 module.exports = router;
