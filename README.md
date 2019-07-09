@@ -65,8 +65,8 @@ A Comment in the database has the following structure:
 
 ### Minimum Viable Product
 
-- [ ] Add the code necessary to implement the endpoints listed below.
-- [ ] Separate the endpoints that begin with `/api/posts` into a separate `Express Router`.
+- [ x ] Add the code necessary to implement the endpoints listed below.
+- [ x ] Separate the endpoints that begin with `/api/posts` into a separate `Express Router`.
 
 ### Endpoints.
 
@@ -189,11 +189,11 @@ When the client makes a `PUT` request to `/api/posts/:id`:
   - [ x ] respond with HTTP status code `500`.
   - [ x ] return the following JSON object: `{ error: "The post information could not be modified." }`.
 
-- [ ] If the post is found and the new information is valid:
+- [ x ] If the post is found and the new information is valid:
 
-  - [ ] update the post document in the database using the new information sent in the `request body`.
-  - [ ] return HTTP status code `200` (OK).
-  - [ ] return the newly updated _post_.
+  - [ x ] update the post document in the database using the new information sent in the `request body`.
+  - [ x ] return HTTP status code `200` (OK).
+  - [ x ] return the newly updated _post_.
 
 ## Stretch Problems
 
