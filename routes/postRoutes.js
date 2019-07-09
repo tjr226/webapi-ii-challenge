@@ -1,11 +1,50 @@
 const express = require('express');
 const router = express.Router();
 
+router.use(express.json());
+
 const db = require('../data/db.js');
 
 // POST blog post
+router.post('/', (req, res) => {
+    const postInfo = req.body;
+    // NOTE - inserting w/o title or contents kicks to catch
+    // this code is janky but will be fixed with middleware
 
+    db.insert(postInfo)
+        .then(post => {
+            res.status(201).json(post);
+        })
+        .catch(error => {
+            if (postInfo.title || postInfo.contents) {
+                res.status(400).json({ errorMessage: "Please provide title and contents for the post." });
+            } else {
+                res.status(500).json({ error: "There was an error while saving the post to the database" });
+            }
+        })
+})
 // POST comment
+router.post('/:id/comments', (req, res) => {
+    const text = req.body.text;
+    const { id } = req.params;
+
+    // NOTE: db does not return anything for missing post_id
+    db.insertComment({ text, post_id: id })
+        .then(comment => {
+            if (comment.length === 0) {
+                res.status(404).json({ message: "The post with the specified ID does not exist." });
+            } else {
+                res.status(201).json(comment);
+            }
+        })
+        .catch(error => {
+            if (commentObject.text === undefined) {
+                res.status(404).json({ errorMessage: "Please provide text for the comment." })
+            } else {
+                res.status(500).json({ error: "Either there was an error, or the original post doesn't exist." })
+            }
+        })
+})
 
 // GET all blog posts
 
